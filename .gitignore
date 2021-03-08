@@ -135,3 +135,4 @@ db.sqlite3
 #paths
 
 __pycache__/
+migrations/
