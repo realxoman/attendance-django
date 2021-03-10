@@ -28,11 +28,13 @@ class UserTerm(models.Model):
         verbose_name_plural = 'کلاس های کاربران'
 
 class Jalase(models.Model):
-    attend = models.BooleanField(null=True, verbose_name="حضور")
+    name_jalase = models.IntegerField(null=True, default=1, verbose_name="شماره جلسه")
+    attend = models.BooleanField(null=True, default=False, verbose_name="حضور")
     date_jalase = models.DateTimeField(null=True, verbose_name="زمان جلسه")
     userterm =  models.ForeignKey(UserTerm, null=True, blank=True, on_delete=models.CASCADE, verbose_name="انتخاب کلاس", related_name="jalasat")
     class Meta:
         verbose_name = 'جلسات'
         verbose_name_plural = 'جلسه'
-
+    def __str__(self):
+        return self.userterm.user.get_full_name() + " " + self.userterm.classname.name + " جلسه‌ی" + str(self.name_jalase)
     
