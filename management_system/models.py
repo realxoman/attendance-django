@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.fields import DateTimeField
-
+from datetime import datetime
 
 # Create your models here.
 
@@ -20,7 +20,10 @@ class UserTerm(models.Model):
     id = models.AutoField(primary_key=True)
     classname = models.ForeignKey(TarahiClass, null=True, blank=True, on_delete=models.CASCADE, verbose_name="انتخاب کلاس")
     user = models.ForeignKey(User, null=True, blank=True,on_delete=models.CASCADE, verbose_name="نام کاربری هنرجو")
-    date_pay = models.DateField(auto_now=False, auto_now_add=False,null=True, blank=True, verbose_name="تاریخ پرداخت")
+    payment_status = models.BooleanField(null=True,default=False, verbose_name="پرداخت انجام شده است؟")
+    date_payment = models.DateField(auto_now=False, auto_now_add=False,null=True, blank=True ,verbose_name="تاریخ سر رسید")
+    date_payment2 = models.DateField(auto_now=False, auto_now_add=False,null=True, blank=True, verbose_name="تاریخ پرداخت")
+
     def __str__(self):
         return self.user.get_full_name() + " " + self.classname.name
     class Meta:
@@ -29,12 +32,11 @@ class UserTerm(models.Model):
 
 class Jalase(models.Model):
     name_jalase = models.IntegerField(null=True, default=1, verbose_name="شماره جلسه")
-    attend = models.BooleanField(null=True, default=False, verbose_name="حضور")
-    date_jalase = models.DateTimeField(null=True, verbose_name="زمان جلسه")
+    attend = models.BooleanField(null=True,default=False, verbose_name="برگزار شده؟")
+    date_jalase = models.DateTimeField(null=True,default=datetime.now() ,verbose_name="زمان جلسه")
     userterm =  models.ForeignKey(UserTerm, null=True, blank=True, on_delete=models.CASCADE, verbose_name="انتخاب کلاس", related_name="jalasat")
     class Meta:
-        verbose_name = 'جلسات'
-        verbose_name_plural = 'جلسه'
+        verbose_name = 'جلسه'
+        verbose_name_plural = 'جلسات'
     def __str__(self):
         return self.userterm.user.get_full_name() + " " + self.userterm.classname.name + " جلسه‌ی" + str(self.name_jalase)
-    
