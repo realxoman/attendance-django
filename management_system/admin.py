@@ -11,14 +11,19 @@ class Jalase_Inline(StackedInlineJalaliMixin,admin.StackedInline):
     model = Jalase
     extra = 1
 
+class classnameAdmin(admin.ModelAdmin):
+    search_fields = ['name']
+
 
 class UserTermAdmin(ModelAdminJalaliMixin,admin.ModelAdmin):
     list_display = ('classname','user')
     inlines = (
         Jalase_Inline,
     )
+    search_fields = ['user__username','user__first_name','user__last_name','classname__name']
+    autocomplete_fields = ['user','classname']
     
 
-admin.site.register(TarahiClass)
+admin.site.register(TarahiClass,classnameAdmin)
 admin.site.register(UserTerm,UserTermAdmin)
 admin.site.register(Jalase)

@@ -13,7 +13,6 @@ def CronJobs(request):
     courseslist = UserTerm.objects.filter(payment_status = False)
     ct = False
     pr = date.today()
-    pr2 = datetime.now()
     for course in courseslist:
         mytime = course.date_payment - timedelta(days=3)
         if mytime == pr:
@@ -22,6 +21,8 @@ def CronJobs(request):
     coursejalase = Jalase.objects.filter(attend = False)
     for course in coursejalase:
         mytime = course.date_jalase
-        print(mytime)
+        if mytime.date() < pr:
+            course.attend = True
+            course.save()
     return render(request,"cron.html",{"ct": ct,"pr": pr,"courseslist": courseslist})
             

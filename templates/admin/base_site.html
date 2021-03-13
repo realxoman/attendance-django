@@ -1,0 +1,85 @@
+{% extends "admin/base.html" %}
+
+{% block extrastyle %}
+<style>
+@font-face {
+      font-family: 'iransans';
+      src: url(/static/fonts/woff/IRANSansWeb.woff);
+    }
+
+
+       body{
+      font-family: "iransans" !important;
+    }
+
+#header{
+    background:#e84393;
+}
+    td, th{
+      font-family: "iransans" !important;
+      padding: 15px;
+    }
+
+    input, textarea, select, .form-row p, form .button {
+      font-family: "iransans" !important;
+    }
+    
+    div.breadcrumbs a, div.breadcrumbs a:visited{
+        
+       color: #1a0b83;
+    }div.breadcrumbs a:hover{
+        color:#fff;
+    }
+    div.breadcrumbs{
+        background:pink;
+        color:#fff;
+    }
+    
+    a, a:visited, a:hover, a:focus{
+        color:rgb(48, 105, 152);
+    }
+   
+    #branding h1, #branding h1 a:link, #branding h1 a:visited, thead th, tfoot td{
+      color: #fff
+    }
+    .row2 {
+    background: rgb(62 137 199 / 7%);
+  }
+    a.section:link, a.section:visited{
+      font-size: 14px;
+    }
+    #changelist table thead th{
+      padding: 5px;
+    }
+    #user-tools a:focus, #user-tools a:hover{
+      color: black;
+    }
+
+    thead th{
+      background: rgba(62, 137, 199, 1);
+    }
+    thead th a:link, thead th a:visited{
+      color: #fff;
+
+    }
+    thead th.sorted{
+      background: rgb(48, 105, 152);
+    }
+    table thead th .text a:focus, table thead th .text a:hover{
+      color: black;
+      border-radius: 25px;
+    }.module h2, .module caption, .inline-group h2{
+        background:#e84393;
+    }
+</style>
+{% endblock %}
+
+
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}">{{ site_header|default:_('Django administration') }}</a></h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
