@@ -53,6 +53,23 @@ def SuperPanel(request):
     else:
         return HttpResponseRedirect("/")
     
+def ManageUsers(request):
+    if request.user.is_authenticated:
+        if request.user.is_superuser:
+            return render(request,"manageusers.html")
+        else:
+            return HttpResponseRedirect("/usercp/")
+    else:
+        return HttpResponseRedirect("/")
+
+def Manageclasses(request):
+    if request.user.is_authenticated:
+        if request.user.is_superuser:
+            return render(request,"manageclasses.html")
+        else:
+            return HttpResponseRedirect("/usercp/")
+    else:
+        return HttpResponseRedirect("/")
 
 def CronJobs(request):
     courseslist = UserTerm.objects.filter(payment_status = False)

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}
+
+مدیریت کاربران
+
+{% endblock %}
+
+{% block bodyclass %}
+
+<body class="panel d-flex align-items-center">
+    {% endblock %}
+
+    {% block content %}
+    <div class="card">
+        <div class="card-body my-3">
+            <div class="card-title text-success text-center">
+                {{request.user.get_full_name}} عزیز، 
+                شما در حال حاضر در صفحه مدیریت کاربران هستید
+            </div>
+            <div class="mt-5 row justify-content-center">
+                <a href="/admin/management_system/userterm/add/" class="col-12 col-md-5 m-2 py-4 btn btn-primary">
+                ساخت کلاس جدید
+                </a>
+                <a href="/admin/management_system/userterm/" class="col-12 col-md-5 m-2 py-4 btn btn-success">
+                ‌مشاهده همه کلاس‌ها
+                </a>
+                <a href="/admin/management_system/tarahiclass/add/" class="col-12 col-md-5 m-2 py-4 btn btn-warning">
+                ساخت نوع کلاس جدید
+                </a>
+                <a href="/admin/management_system/tarahiclass/" class="col-12 col-md-5 m-2 py-4 btn btn-info">
+                مشاهده انواع کلاس
+                </a>
+                <a href="/mypanel/" class="col-12 col-md-5 m-2 py-4 btn btn-danger">
+                    برگشت به پنل مدیریت
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+
+    {% endblock %}
