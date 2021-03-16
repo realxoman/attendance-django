@@ -40,3 +40,4 @@ class Jalase(models.Model):
         verbose_name_plural = 'جلسات'
     def __str__(self):
         return self.userterm.user.get_full_name() + " " + self.userterm.classname.name + " جلسه‌ی" + str(self.name_jalase)
+

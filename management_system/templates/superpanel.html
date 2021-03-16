@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}
+
+صفحه مدیریت حضور و غیاب
+
+{% endblock %}
+
+{% block bodyclass %}
+
+<body class="panel d-flex align-items-center">
+    {% endblock %}
+
+    {% block content %}
+    <div class="card">
+        <div class="card-body my-3">
+            <div class="card-title text-success text-center">
+                {{request.user.get_full_name}} عزیز، به پنل کاربری مدیریت خوش آمدید
+            </div>
+            <div class="mt-5 row justify-content-center">
+                <a href="/" class="col-12 col-md-5 m-2 py-4 btn btn-primary">
+                مدیریت کاربران
+                </a>
+                <a href="/" class="col-12 col-md-5 m-2 py-4 btn btn-success">
+                مدیریت کلاس ها
+                </a>
+                <a href="/" class="col-12 col-md-5 m-2 py-4 btn btn-warning">
+                مدیریت پیام ها
+                </a>
+                <a href="/logout/" class="col-12 col-md-5 m-2 py-4 btn btn-danger">
+                خروج از حساب
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+
+    {% endblock %}

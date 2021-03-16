@@ -17,6 +17,7 @@ class classnameAdmin(admin.ModelAdmin):
 
 class UserTermAdmin(ModelAdminJalaliMixin,admin.ModelAdmin):
     list_display = ('classname','user')
+    list_filter = ['classname','payment_status']
     inlines = (
         Jalase_Inline,
     )

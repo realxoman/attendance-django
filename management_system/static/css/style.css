@@ -134,11 +134,20 @@ td:not([align]), th:not([align]) {
 }
 
 
-body {
+html,body {
+  height:100%;
     font-family: IRANSans;
     direction: rtl;
     -webkit-transition: 0.5s ease-in-out !important;
     transition: 0.5s ease-in-out !important;
   }
-  
 
+.panel{
+  background-color: cornflowerblue;
+}
+
+.panel .card{
+  max-width: 1100px;
+  width: 100%;
+  margin: auto;
+}
