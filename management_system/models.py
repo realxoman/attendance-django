@@ -2,8 +2,42 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.fields import DateTimeField
 from datetime import datetime
+from django.db.models.signals import post_save,post_delete
+from django.dispatch import receiver
 
 # Create your models here.
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    fname = models.CharField(max_length=50, blank=True, verbose_name="نام")
+    lname = models.CharField(max_length=50, blank=True, verbose_name=" نام خانوادگی")
+    description = models.TextField(max_length=500, null=True, blank=True, verbose_name="توضیحات کاربر")
+    class Meta:
+        verbose_name = 'پروفایل کاربر'
+        verbose_name_plural = 'پروفایل کاربران'
+    def save(self, *args, **kwargs):
+        user = User.objects.get(id=self.user.id)
+        user.first_name = self.fname
+        user.last_name = self.lname
+        user.save()
+    def __str__(self):
+        return self.user.username
+    
+    
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
+
+@receiver(post_delete, sender=Profile)
+def post_delete_user(sender, instance, *args, **kwargs):
+    if instance.user:
+        instance.user.delete()
 
 class TarahiClass(models.Model):
     id = models.AutoField(primary_key=True)

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import TarahiClass,UserTerm,Jalase
+from .models import TarahiClass,UserTerm,Jalase,Profile
 from jalali_date.admin import ModelAdminJalaliMixin, StackedInlineJalaliMixin
 
 admin.site.site_title = "چهره پردازان"
@@ -23,8 +23,13 @@ class UserTermAdmin(ModelAdminJalaliMixin,admin.ModelAdmin):
     )
     search_fields = ['user__username','user__first_name','user__last_name','classname__name']
     autocomplete_fields = ['user','classname']
-    
 
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = ('user','fname','lname')
+    search_fields = ['user__username','fname','lname']
+    autocomplete_fields = ['user']
+
+admin.site.register(Profile,UserProfileAdmin)
 admin.site.register(TarahiClass,classnameAdmin)
 admin.site.register(UserTerm,UserTermAdmin)
 admin.site.register(Jalase)

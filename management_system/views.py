@@ -17,14 +17,14 @@ def login_(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request,user)
-            if request.user.is_superuser:
+            if request.user.is_staff:
                 return HttpResponseRedirect("/mypanel/")
             else:
                 return HttpResponseRedirect("/usercp/")
         elif user is none:
             error = True
     if request.user.is_authenticated:
-        if request.user.is_superuser:
+        if request.user.is_staff:
             return HttpResponseRedirect("/mypanel/")
         else:
             return HttpResponseRedirect("/usercp/")
@@ -38,7 +38,7 @@ def logout_(request):
 
 def userPanel(request):
     if request.user.is_authenticated:
-        if request.user.is_superuser:
+        if request.user.is_staff:
             return HttpResponseRedirect("/mypanel/")
         else:
             return render(request,"userpanel.html")
@@ -46,7 +46,7 @@ def userPanel(request):
 
 def SuperPanel(request):
     if request.user.is_authenticated:
-        if request.user.is_superuser:
+        if request.user.is_staff:
             return render(request,"superpanel.html")
         else:
             return HttpResponseRedirect("/usercp/")
@@ -55,7 +55,7 @@ def SuperPanel(request):
     
 def ManageUsers(request):
     if request.user.is_authenticated:
-        if request.user.is_superuser:
+        if request.user.is_staff:
             return render(request,"manageusers.html")
         else:
             return HttpResponseRedirect("/usercp/")
@@ -64,7 +64,7 @@ def ManageUsers(request):
 
 def Manageclasses(request):
     if request.user.is_authenticated:
-        if request.user.is_superuser:
+        if request.user.is_staff:
             return render(request,"manageclasses.html")
         else:
             return HttpResponseRedirect("/usercp/")
