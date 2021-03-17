@@ -9,40 +9,32 @@ from django.dispatch import receiver
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    fname = models.CharField(max_length=50, blank=True, verbose_name="نام")
-    lname = models.CharField(max_length=50, blank=True, verbose_name=" نام خانوادگی")
+    phoneNumber = models.CharField(max_length=11,null=True, blank=True, verbose_name="شماره تلفن همراه (بدون صفر ابتدایی)")
     description = models.TextField(max_length=500, null=True, blank=True, verbose_name="توضیحات کاربر")
     class Meta:
         verbose_name = 'پروفایل کاربر'
-        verbose_name_plural = 'پروفایل کاربران'
-    def save(self, *args, **kwargs):
-        user = User.objects.get(id=self.user.id)
-        user.first_name = self.fname
-        user.last_name = self.lname
-        user.save()
+        verbose_name_plural = 'پروفایل کاربر'
     def __str__(self):
         return self.user.username
-    
-    
-
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)
-
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
-
+        
 @receiver(post_delete, sender=Profile)
 def post_delete_user(sender, instance, *args, **kwargs):
     if instance.user:
-        instance.user.delete()
+        instance.user.delete()    
+    
+
+@receiver(post_save, sender=User)
+def create_or_update_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+    instance.profile.save()
+
+
 
 class TarahiClass(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50,default="ساده", verbose_name="نام")
-    level = models.CharField(max_length=50,default="ساده", verbose_name="سطح")
+    level = models.CharField(max_length=50,default="500 هزار تومان", verbose_name="شهریه")
     class Meta:
         verbose_name = 'نوع کلاس'
         verbose_name_plural = 'انواع کلاس ها'

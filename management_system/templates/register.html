@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}
+افزودن کاربری
+
+{% endblock %}
+
+{% block bodyclass %}
+
+<body class="panel d-flex align-items-center">
+    {% endblock %}
+
+    {% block content %}
+    <style>
+        .helptext {
+            margin: 10px 0;
+        }
+
+        label {
+            margin: 10px 0;
+        }
+
+        body {
+            margin: 20px 0 !important;
+        }
+    </style>
+    <div class="card">
+        <div class="card-body my-3">
+            <div class="card-title text-success text-center">
+                {{request.user.get_full_name}} عزیز،
+                شما در حال حاضر در صفحه افزودن کاربر هستید
+                <br>
+                {{payam}}
+            </div>
+            <div class="mt-5 justify-content-center">
+
+                <form method="post" class="d-flex flex-column form-group">
+                    {% csrf_token %}
+
+                    {{form}}
+
+                    <button type="submit" class="btn btn-success my-2">افزودن کاربر</button>
+                    <div class="row justify-content-center">
+                        <a href="/manageusers/" class="col-12 col-md-5 m-2 py-4 btn btn-warning">
+                            بازگشت به مدیریت کاربران
+                        </a>
+                        <a href="/mypanel/" class="col-12 col-md-5 m-2 py-4 btn btn-danger">
+                            برگشت به پنل مدیریت
+                        </a></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    {% endblock %}

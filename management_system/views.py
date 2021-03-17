@@ -1,4 +1,4 @@
-from django.db.models.deletion import SET_NULL
+from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
@@ -6,8 +6,24 @@ from .models import Jalase,UserTerm
 from datetime import date, timedelta
 from django.urls import reverse
 from ippanel import *
+from .forms import SignUpForm
 
 # Create your views here.
+
+def signup(request):
+    payam = "شما در حال ساخت کاربر جدید هستید."
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            user.refresh_from_db()  # load the profile instance created by the signal
+            user.profile.phoneNumber = form.cleaned_data.get('phoneNumber')
+            user.save()
+            payam = "کاربر ساخته شد."
+            render(request, 'register.html', {'form': form , 'payam' : payam})
+    else:
+        form = SignUpForm()
+    return render(request, 'register.html', {'form': form , 'payam' : payam})
 
 def login_(request):
     error=False
