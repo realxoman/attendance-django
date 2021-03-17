@@ -44,8 +44,8 @@ def login_(request):
                 return HttpResponseRedirect("/mypanel/")
             else:
                 return HttpResponseRedirect("/usercp/")
-        elif user is none:
-            error = True
+        elif user is None:
+            return render(request, "home.html")
     if request.user.is_authenticated:
         if request.user.is_staff:
             return HttpResponseRedirect("/mypanel/")
