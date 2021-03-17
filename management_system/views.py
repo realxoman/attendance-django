@@ -12,18 +12,25 @@ from .forms import SignUpForm
 
 def signup(request):
     payam = "شما در حال ساخت کاربر جدید هستید."
-    if request.method == 'POST':
-        form = SignUpForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            user.refresh_from_db()  # load the profile instance created by the signal
-            user.profile.phoneNumber = form.cleaned_data.get('phoneNumber')
-            user.save()
-            payam = "کاربر ساخته شد."
-            render(request, 'register.html', {'form': form , 'payam' : payam})
+    if request.user.is_authenticated:
+        if request.user.is_staff:
+            if request.method == 'POST':
+                form = SignUpForm(request.POST)
+                if form.is_valid():
+                    user = form.save()
+                    user.refresh_from_db()  # load the profile instance created by the signal
+                    user.profile.phoneNumber = form.cleaned_data.get('phoneNumber')
+                    user.save()
+                    payam = "کاربر ساخته شد."
+                    render(request, 'register.html', {'form': form , 'payam' : payam})
+            else:
+                form = SignUpForm()
+            return render(request, 'register.html', {'form': form , 'payam' : payam})
+        else:
+            return HttpResponseRedirect("/usercp/")
     else:
-        form = SignUpForm()
-    return render(request, 'register.html', {'form': form , 'payam' : payam})
+        return HttpResponseRedirect("/")
+
 
 def login_(request):
     error=False
