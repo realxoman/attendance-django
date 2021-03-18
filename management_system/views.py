@@ -98,6 +98,11 @@ def Userclasscp(request):
     userclasses = UserTerm.objects.filter(user=request.user)
     return render(request,"userclasses.html",{"userclasses": userclasses})
 
+def Userclass_single(request,slug):
+    userclass = UserTerm.objects.get(id=slug)
+    jalasse = userclass.jalasat.all()
+    return render(request,"userclass-single.html",{"userclass": userclass,'jalasse':jalasse})
+
 def CronJobs(request):
     courseslist = UserTerm.objects.filter(payment_status = False)
     ct = False

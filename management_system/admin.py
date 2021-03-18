@@ -1,10 +1,10 @@
 from django.contrib import admin
 from .models import TarahiClass,UserTerm,Jalase,Profile
 from jalali_date.admin import ModelAdminJalaliMixin, StackedInlineJalaliMixin
-
-from django.contrib.auth.models import User
-
+from django.contrib.auth.models import User,Group
+from jalali_date import datetime2jalali, date2jalali
 from .models import Profile
+from django.contrib.admin.forms import AdminPasswordChangeForm
 
 admin.site.site_title = "چهره پردازان"
 admin.site.index_title = "مدیریت حضور و غیاب"
@@ -51,10 +51,7 @@ class UserTermAdmin(ModelAdminJalaliMixin,admin.ModelAdmin):
 
 
 
-
-
-admin.site.unregister(User)
-admin.site.register(User, UserProfileAdmin)
+admin.site.unregister(Group)
 admin.site.register(TarahiClass,classnameAdmin)
 admin.site.register(UserTerm,UserTermAdmin)
 admin.site.register(Jalase)

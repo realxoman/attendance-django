@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}
+
+پنل کاربری هنرجویان حضوری
+
+{% endblock %}
+
+{% block bodyclass %}
+
+<body class="panel d-flex align-items-center">
+    {% endblock %}
+
+    {% block content %}
+    {% load jalali_tags %}
+    <div class="card">
+        <div class="card-body my-3">
+            <div class="card-title text-success text-center">
+                {{request.user.get_full_name}} عزیز، شما در صفحه مشاهده کلاس ها هستید. 
+            </div>
+            {% for class in userclasses %}
+            <div class="mt-5 row justify-content-center align-items-center p-3 bg-light">
+                <p class="col-6 col-md-4 my-3 text-primary">{{ class.classname }} {{class.id}}</p>
+                <p class="col-6 col-md-4 my-3 text-danger">تاریخ سر رسید پرداخت : {{ class.date_payment|to_jalali:'%y/%m/%d'}}</p>
+                <a href="{{class.id}}/" class="col-12 my-3 col-md-4 btn btn-success">مشاهده جلسات</a>
+            </div>
+            {% endfor %}
+            <div class="mt-5 row justify-content-center">
+                <a href="/attend/usercp/" class="col-12 col-md-5 m-2 py-4 btn btn-danger">
+                برگشت به صفحه اصلی
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+
+    {% endblock %}

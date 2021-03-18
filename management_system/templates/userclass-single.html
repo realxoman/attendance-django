@@ -1,0 +1,52 @@
+
+
+{% extends 'base.html' %}
+{% block title %}
+
+پنل کاربری هنرجویان حضوری
+
+{% endblock %}
+
+{% block bodyclass %}
+
+<body class="panel d-flex align-items-center">
+    {% endblock %}
+
+    {% block content %}
+    {% load jalali_tags %}
+    <div class="card">
+        <div class="card-body my-3">
+            <div class="card-title text-success text-center">
+                {{request.user.get_full_name}} عزیز، شما در صفحه مشاهده کلاس ها هستید. 
+            </div>
+            <p class="col-6 col-md-4 my-3 text-primary">نام کلاس : {{ userclass.classname }} {{userclass.id}}</p>
+            <p class="col-6 col-md-4 my-3 text-danger">تعداد جلسات : {{ jalasse|length }}</p>
+            <p class="col-6 col-md-4 my-3 text-danger">تاریخ سر رسید پرداخت : {{ userclass.date_payment}}</p>
+            <hr/>
+            {% for jalase in jalasse %}
+             <div class="mt-5 row justify-content-center align-items-center p-3 bg-light">
+                <p class="col-6 my-3 text-primary">جلسه شماره : {{forloop.counter}}</p>
+                <p class="col-6 my-3 text-danger">تاریخ و زمان جلسه : {{ jalase.date_jalase|to_jalali:'%y/%m/%d _ %H:%M:%S'}}</p>
+                <p class="col-6 my-3 text-danger">آیا جلسه برگذار شده است؟</p>
+                <p class="col-6 my-3 text-success">
+                
+                {% if jalase.attend == False %}
+خیر
+                {% else %}
+بله
+                {% endif %}
+                
+                </p>
+            </div>
+            {% endfor %}
+            <div class="mt-5 row justify-content-center">
+                <a href="/attend/usercp/" class="col-12 col-md-5 m-2 py-4 btn btn-danger">
+                برگشت به صفحه اصلی
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+
+    {% endblock %}
