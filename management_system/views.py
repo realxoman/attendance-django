@@ -121,6 +121,7 @@ def CronJobs(request):
         mytime = course.date_payment
         if mytime <= pr:
             course.payment_status = False
+            course.save()
     for course in courseslist:
         mytime = course.date_payment
         if mytime == pr:

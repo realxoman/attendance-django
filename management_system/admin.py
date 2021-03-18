@@ -41,8 +41,9 @@ class UserProfileAdmin(admin.ModelAdmin):
             return list()
         return super(UserProfileAdmin, self).get_inline_instances(request, obj)
 
+
 class UserTermAdmin(ModelAdminJalaliMixin,admin.ModelAdmin):
-    list_display = ('classname','user','payment_status','class_status','show_firm_url')
+    list_display = ('classname','user','fullnames','payment_status','class_status','show_firm_url')
     list_filter = ['classname','payment_status','class_status','date_payment']
     inlines = (
         Jalase_Inline,
@@ -51,9 +52,10 @@ class UserTermAdmin(ModelAdminJalaliMixin,admin.ModelAdmin):
     autocomplete_fields = ['user','classname']
     def show_firm_url(self, obj):
         return format_html("<a href='/usercp/userclasses/{id}/' target='_blank'>مشاهده جلسات</a>", id=obj.id)
-
     show_firm_url.short_description = "لینک جلسات"
-
+    def fullnames(self, obj):
+        return obj.user.get_full_name()
+    fullnames.short_description = "نام و نام خانوادگی هنرجو"
 
 admin.site.unregister(Group)
 admin.site.register(TarahiClass,classnameAdmin)
