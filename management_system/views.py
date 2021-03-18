@@ -112,12 +112,17 @@ def Userclass_single(request,slug):
 
 def CronJobs(request):
     courseslist = UserTerm.objects.filter(payment_status = False)
+    courseslist2 = UserTerm.objects.filter(payment_status = True)
     ct = False
     pr = date.today()
     api_key = "B9onqAUmrWEmFNL2zoZ-IYzUYFzsJaTLD8Rvxctsqw0="
     sms = Client(api_key)
+    for course in courseslist2:
+        mytime = course.date_payment
+        if mytime <= pr:
+            course.payment_status = False
     for course in courseslist:
-        mytime = course.date_payment - timedelta(days=3)
+        mytime = course.date_payment
         if mytime == pr:
             sms_message = "سلام\n" + course.user.get_full_name() + " عزیز،\n" + "سر رسید شهریه شما فرا رسیده است.\n لطفا جهت پرداخت آن اقدام نمایید.\n آموزشگاه طراحی چهره و سیاه قلم چهره پردازان"
             bulk_id = sms.send("+981000500030500", ["+989921658994"], sms_message)
@@ -128,4 +133,5 @@ def CronJobs(request):
         if mytime.date() < pr:
             course.attend = True
             course.save()
-    return render(request,"cron.html",{"ct": ct,"pr": pr,"courseslist": courseslist})
+    return render(request,"cron.html",{"ct": ct,"pr": pr,"courseslist": courseslist,"courseslist2":courseslist2})
+
