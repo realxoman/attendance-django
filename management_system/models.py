@@ -44,6 +44,7 @@ class TarahiClass(models.Model):
 
 class UserTerm(models.Model):
     id = models.AutoField(primary_key=True)
+    class_status = models.BooleanField(null=True,default=False, verbose_name="درخواست اتمام دوره ؟")
     classname = models.ForeignKey(TarahiClass, null=True, blank=True, on_delete=models.CASCADE, verbose_name="انتخاب کلاس")
     user = models.ForeignKey(User, null=True, blank=True,on_delete=models.CASCADE, verbose_name="نام کاربری هنرجو")
     payment_status = models.BooleanField(null=True,default=False, verbose_name="پرداخت انجام شده است؟")

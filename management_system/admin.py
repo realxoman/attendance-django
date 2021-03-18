@@ -41,8 +41,8 @@ class UserProfileAdmin(admin.ModelAdmin):
         return super(UserProfileAdmin, self).get_inline_instances(request, obj)
 
 class UserTermAdmin(ModelAdminJalaliMixin,admin.ModelAdmin):
-    list_display = ('classname','user')
-    list_filter = ['classname','payment_status']
+    list_display = ('classname','user','payment_status','class_status')
+    list_filter = ['classname','payment_status','class_status','date_payment']
     inlines = (
         Jalase_Inline,
     )

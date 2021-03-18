@@ -94,6 +94,10 @@ def Manageclasses(request):
     else:
         return HttpResponseRedirect("/")
 
+def Userclasscp(request):
+    userclasses = UserTerm.objects.filter(user=request.user)
+    return render(request,"userclasses.html",{"userclasses": userclasses})
+
 def CronJobs(request):
     courseslist = UserTerm.objects.filter(payment_status = False)
     ct = False
