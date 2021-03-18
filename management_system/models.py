@@ -34,7 +34,7 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
 class TarahiClass(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50,default="ساده", verbose_name="نام")
-    level = models.CharField(max_length=50,default="500 هزار تومان", verbose_name="شهریه")
+    level = models.CharField(max_length=50,default="500 هزار تومان", verbose_name="شهریه هر جلسه")
     class Meta:
         verbose_name = 'نوع کلاس'
         verbose_name_plural = 'انواع کلاس ها'

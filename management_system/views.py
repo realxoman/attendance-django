@@ -95,13 +95,20 @@ def Manageclasses(request):
         return HttpResponseRedirect("/")
 
 def Userclasscp(request):
-    userclasses = UserTerm.objects.filter(user=request.user)
-    return render(request,"userclasses.html",{"userclasses": userclasses})
+    if request.user.is_authenticated:
+        userclasses = UserTerm.objects.filter(user=request.user)
+        return render(request,"userclasses.html",{"userclasses": userclasses})
+    else:
+        return HttpResponseRedirect("/")
+    
 
 def Userclass_single(request,slug):
-    userclass = UserTerm.objects.get(id=slug)
-    jalasse = userclass.jalasat.all()
-    return render(request,"userclass-single.html",{"userclass": userclass,'jalasse':jalasse})
+    if request.user.is_authenticated:
+        userclass = UserTerm.objects.get(id=slug)
+        jalasse = userclass.jalasat.all()
+        return render(request,"userclass-single.html",{"userclass": userclass,'jalasse':jalasse})
+    else:
+        return HttpResponseRedirect("/")
 
 def CronJobs(request):
     courseslist = UserTerm.objects.filter(payment_status = False)
