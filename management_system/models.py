@@ -47,8 +47,9 @@ class UserTerm(models.Model):
     classname = models.ForeignKey(TarahiClass, null=True, blank=True, on_delete=models.CASCADE, verbose_name="انتخاب کلاس")
     user = models.ForeignKey(User, null=True, blank=True,on_delete=models.CASCADE, verbose_name="نام کاربری هنرجو")
     payment_status = models.BooleanField(null=True,default=False, verbose_name="پرداخت انجام شده است؟")
-    date_payment = models.DateField(auto_now=False, auto_now_add=False,null=True, blank=True ,verbose_name="تاریخ سر رسید")
-    date_payment2 = models.DateField(auto_now=False, auto_now_add=False,null=True, blank=True, verbose_name="تاریخ پرداخت")
+    date_payment2 = models.DateField(auto_now=False, auto_now_add=False,null=True, blank=True, verbose_name="تاریخ شروع")
+    date_payment = models.DateField(auto_now=False, auto_now_add=False,null=True, blank=True ,verbose_name="تاریخ سر رسید پرداخت")
+
 
     def __str__(self):
         return self.user.get_full_name() + " " + self.classname.name

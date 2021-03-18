@@ -58,4 +58,3 @@ class UserTermAdmin(ModelAdminJalaliMixin,admin.ModelAdmin):
 admin.site.unregister(Group)
 admin.site.register(TarahiClass,classnameAdmin)
 admin.site.register(UserTerm,UserTermAdmin)
-admin.site.register(Jalase)
