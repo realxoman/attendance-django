@@ -131,7 +131,7 @@ def CronJobs(request):
     coursejalase = Jalase.objects.filter(attend = False)
     for course in coursejalase:
         mytime = course.date_jalase
-        if mytime.date() < pr:
+        if mytime.date() <= pr:
             course.attend = True
             course.save()
     return render(request,"cron.html",{"ct": ct,"pr": pr,"courseslist": courseslist,"courseslist2":courseslist2})
