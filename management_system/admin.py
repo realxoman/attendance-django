@@ -50,7 +50,7 @@ class UserTermAdmin(ModelAdminJalaliMixin,admin.ModelAdmin):
     search_fields = ['user__username','user__first_name','user__last_name','classname__name']
     autocomplete_fields = ['user','classname']
     def show_firm_url(self, obj):
-        return format_html("<a href='/usercp/userclasses/{id}/' target="_blank">مشاهده جلسات</a>", id=obj.id)
+        return format_html("<a href='/usercp/userclasses/{id}/' target='_blank'>مشاهده جلسات</a>", id=obj.id)
 
     show_firm_url.short_description = "لینک جلسات"
 
